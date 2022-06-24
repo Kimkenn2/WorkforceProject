@@ -5,6 +5,13 @@ import Signup from './components/Signup';
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
   const [authenticated, setAuthenticated] = useState(false);
+  const [allUsers, setAllUsers] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3001/users")
+    .then(resp => resp.json())
+    .then(users => setAllUsers(users))
+  },[])
 
   useEffect(() => {
     fetch("/me", {
@@ -24,7 +31,7 @@ function App() {
 
   return (
     <div className="App">
-     <Signup />
+     <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser}/>
     </div>
   );
 }
