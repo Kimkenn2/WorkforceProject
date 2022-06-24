@@ -1,3 +1,3 @@
 class Shift < ApplicationRecord
-    has_one :users
+    has_one :userss
 end
