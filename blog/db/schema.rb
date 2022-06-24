@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_24_163551) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_24_172714) do
   create_table "organistations", force: :cascade do |t|
     t.string "name"
     t.decimal "hourly_rate"
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_163551) do
     t.integer "organisation_id"
     t.string "name"
     t.string "email_address"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
