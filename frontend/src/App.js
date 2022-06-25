@@ -16,7 +16,7 @@ function App() {
   },[])
 
   useEffect(() => {
-    fetch("/me", {
+    fetch("http://localhost:3001/me", {
       credentials: "include",
     }).then((res) => {
       if (res.ok) {
@@ -26,7 +26,9 @@ function App() {
           console.log(user)
         });
       } else {
-        setAuthenticated(true);
+        setAuthenticated(true)
+        console.log(res)
+        ;
       }
     });
   }, []);

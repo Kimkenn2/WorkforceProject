@@ -14,6 +14,7 @@ function Login ({setCurrentUser}){
             password: password
         }
         fetch("http://localhost:3001/login", {
+            credentials: 'include',
             method: "POST",
             headers: {
               "Content-Type": "application/json",
