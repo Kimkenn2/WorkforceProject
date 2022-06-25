@@ -39,3 +39,10 @@ input[type=password], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+.orglist {
+  /* width: 10rem; */
+  /* position:absolute; */
+  /* left:ce; */
+  /* position: center; */
+}
