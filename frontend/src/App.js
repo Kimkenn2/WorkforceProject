@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-     {login ? <Login /> : <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser}/>}
+     {login ? <Login setCurrentUser={setCurrentUser}/> : <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser}/>}
      <button onClick={() => setLogin(!login)}>ToggleLogin</button>
     </div>
   );
