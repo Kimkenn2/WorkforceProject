@@ -13,3 +13,18 @@ User.create([
         email_address: "kkm2059@gmail.com"
     }
 ])
+
+Organisation.create([
+    {
+        name: "Pasta's",
+        hourly_rate: 10.00
+    },
+    {
+        name: "Blake's Apple Orchard",
+        hourly_rate: 9.55
+    },
+    {
+        name: "Loger's",
+        hourly_rate: 11.00
+    }
+])

@@ -1,6 +1,6 @@
-class CreateOrganistations < ActiveRecord::Migration[7.0]
+class CreateOrganisations < ActiveRecord::Migration[7.0]
   def change
-    create_table :organistations do |t|
+    create_table :organisations do |t|
       t.string :name
       t.decimal :hourly_rate
 

@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_24_172714) do
-  create_table "organistations", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2022_06_25_183942) do
+  create_table "organisations", force: :cascade do |t|
     t.string "name"
     t.decimal "hourly_rate"
     t.datetime "created_at", null: false
