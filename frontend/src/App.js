@@ -1,11 +1,13 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import Signup from './components/Signup';
+import Login from './components/Login';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
   const [authenticated, setAuthenticated] = useState(false);
   const [allUsers, setAllUsers] = useState([])
+  const [login, setLogin] = useState(true)
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -31,7 +33,8 @@ function App() {
 
   return (
     <div className="App">
-     <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser}/>
+     {login ? <Login /> : <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser}/>}
+     <button onClick={() => setLogin(!login)}>ToggleLogin</button>
     </div>
   );
 }
