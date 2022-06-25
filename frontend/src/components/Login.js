@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from 'react';
 
-function Login ({setCurrentUser}){
+function Login ({setCurrentUser, login, setLogin}){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -37,15 +37,17 @@ function Login ({setCurrentUser}){
     }
     return(
         <div className='Signup'>
-            <form>
-                <h2>Login</h2>
+            <form onSubmit={(e) => handleLogin(e)}>
+                <h2>Log In</h2>
                 <label for="email">Email</label>
                 <input type="text" placeholder='Email' onChange={(e) => setEmail(e.target.value)}></input>
 
                 <label for="password">Password</label>
                 <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)}></input>
-            </form>
             <button onClick={(e) => handleLogin(e)}>Login</button>
+            </form>
+            
+     {login ? <a className='bottext' onClick={() => setLogin(!login)}>Signup</a> : <a className='bottext'onClick={() => setLogin(!login)}>Login</a>}
         </div>
     )
 }

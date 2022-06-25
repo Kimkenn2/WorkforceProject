@@ -36,8 +36,8 @@ function App() {
   return (
     <div className="App">
       {currentUser ? <h1>Welcome {currentUser.name}</h1> : <h4>Not Signed in</h4>}
-     {login ? <Login setCurrentUser={setCurrentUser}/> : <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser}/>}
-     <button onClick={() => setLogin(!login)}>ToggleLogin</button>
+     {login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/>}
+     {/* <button onClick={() => setLogin(!login)}>ToggleLogin</button> */}
     </div>
   );
 }
