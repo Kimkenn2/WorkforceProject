@@ -4,8 +4,8 @@ function Organisations({org}) {
     return (
         <div>
             <span>{org.name}   </span>
-            <span>Edit </span>
-            <span>Join</span>
+            <span className="orgButton">Edit </span>
+            <span className="orgButton">Join</span>
         </div>
     )
 }
