@@ -58,3 +58,18 @@ input[type=password], select {
 .orgButton:hover {
   color:darkblue
 }
+
+.mainNavDiv {
+  position: fixed;
+   top: 0;
+   z-index: 100;
+  /* padding-top: 10px; */
+  /* padding-bottom: 10px; */
+  width: 100%;
+  background-color: rgb(122, 122, 122);
+  box-shadow: 0 2px 4px 0 #2c2c2c;
+}
+
+.home {
+  padding-top: 4rem;
+}

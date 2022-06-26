@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function Organisations({org, setOrganisations}) {
+function Organisations({org, setOrganisations, currentUser}) {
     const [editToggle, setEditToggle] = useState(false)
     const [staticName, setStaticName] = useState(org.name)
     const [editedName, setEditedName] = useState(org.name)
@@ -23,12 +23,23 @@ function Organisations({org, setOrganisations}) {
     ;
 }
 
+function onJoin() {
+    const data = {
+        organisation_id: org.id
+    }
+    fetch(`http://localhost:3001/users/${currentUser.id}`, {
+        method: "PATCH",
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    })
+}
+
 
     return (
         <div>
             {editToggle ? <input value={editedName} onChange={(e) => setEditedName(e.target.value)}></input>: <span>{staticName}   </span>}
             <button className="orgButton" onClick={() => setEditToggle(!editToggle)}>Edit </button>
-            {editToggle ? <></> : <button className="orgButton">Join</button>}
+            {editToggle ? <></> : <button className="orgButton" onClick={() => onJoin()}>Join</button>}
             {editToggle ? <div>
                 <span>
                     {/* <label>Name: </label>

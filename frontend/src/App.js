@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import NavBar from './components/NavBar';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -46,7 +47,7 @@ function App() {
   }
   return (
     <div className="App">
-      {currentUser ? <h1>Welcome {currentUser.name}</h1> : <h4>Not Signed in</h4>}
+      <NavBar currentUser={currentUser}/>
      {currentUser ? <Home rerrenderOrgs={rerenderOrgs()} currentUser={currentUser} setCurrentUser={setCurrentUser} organisations={organisations} setOrganisations={setOrganisations}/> : login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : 
      <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/>}
      {/* <button onClick={() => setLogin(!login)}>ToggleLogin</button> */}

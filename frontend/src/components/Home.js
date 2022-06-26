@@ -40,7 +40,7 @@ function Home({currentUser, setCurrentUser, organisations, rerenderOrgs, setOrga
     }
 
     const renderOrgs = organisations.map(org =>
-        <li><Organisations org={org} setOrganisations={setOrganisations}/></li>
+        <li><Organisations org={org} setOrganisations={setOrganisations} currentUser={currentUser}/></li>
         )
     const noOrg = (
         <div>
@@ -61,9 +61,17 @@ function Home({currentUser, setCurrentUser, organisations, rerenderOrgs, setOrga
             <button onClick={() => createandjoin()}>Create and Join</button>
         </div>
     )
-    return (
+    const yesOrg = (
         <div>
-            {currentUser.organisation_id ? <a></a> : noOrg}
+            <h2>{organisations.find(org => org.id == currentUser.organisation_id).name}</h2>
+            <button>View Shifts</button>
+            <button>Edit</button>
+            <button>Leave</button>
+        </div>
+    )
+    return (
+        <div className="home">
+            {currentUser.organisation_id ? yesOrg : noOrg}
         </div>
     )
 }
