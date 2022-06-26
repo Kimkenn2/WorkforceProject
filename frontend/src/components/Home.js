@@ -1,5 +1,6 @@
 import Organisations from "./Organisations";
 import React, { useState, useEffect } from "react";
+import BelongsToOrganisation from "./BelongsToOrganisation";
 
 function Home({
   currentUser,
@@ -10,9 +11,9 @@ function Home({
 }) {
   const [newOrgName, setNewOrgName] = useState("");
   const [newHourlyRate, setNewHourlyRate] = useState("");
-  const [editToggle, setEditToggle] = useState(false);
-  const [editedName, setEditedName] = useState(organisations.find((org) => org.id == currentUser.organisation_id).name)
-  const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
+//   const [editToggle, setEditToggle] = useState(false);
+//   const [editedName, setEditedName] = useState(organisations.find((org) => org.id == currentUser.organisation_id).name)
+//   const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
 
   function createandjoin() {
     const org = {
@@ -46,33 +47,33 @@ function Home({
       });
   }
 
-  function onSubmitEdit() {
-    const data = {
-        name: editedName,
-        hourly_rate: editedWage
-    }
-    fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then(data => setOrganisations(data))
-    //   .then((data) => setCurrentUser(data));
-  }
+//   function onSubmitEdit() {
+//     const data = {
+//         name: editedName,
+//         hourly_rate: editedWage
+//     }
+//     fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}`, {
+//       method: "PATCH",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(data),
+//     })
+//       .then((resp) => resp.json())
+//       .then(data => setOrganisations(data))
+//     //   .then((data) => setCurrentUser(data));
+//   }
 
-  function onLeave() {
-    const data = {
-      organisation_id: null,
-    };
-    fetch(`http://localhost:3001/users/${currentUser.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then((data) => setCurrentUser(data));
-  }
+//   function onLeave() {
+//     const data = {
+//       organisation_id: null,
+//     };
+//     fetch(`http://localhost:3001/users/${currentUser.id}`, {
+//       method: "PATCH",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(data),
+//     })
+//       .then((resp) => resp.json())
+//       .then((data) => setCurrentUser(data));
+//   }
 
   const renderOrgs = organisations.map((org) => (
     <li>
@@ -110,50 +111,50 @@ function Home({
       <button onClick={() => createandjoin()}>Create and Join</button>
     </div>
   );
-  const yesOrg = currentUser.organisation_id ? (
-    <div>
-      <h2>
-        {
-          organisations.find((org) => org.id == currentUser.organisation_id)
-            .name
-        }
-      </h2>
-      <button>View Shifts</button>
-      <button onClick={() => setEditToggle(!editToggle)}>Edit</button>
-      <button onClick={() => onLeave()}>Leave</button>
-      {editToggle ? (
-        <div>
-          <div>
-            <label>Name: </label>
-            <input onChange={(e) => setEditedName(e.target.value)} value={editedName}
-              placeholder={
-                organisations.find(
-                  (org) => org.id == currentUser.organisation_id
-                ).name
-              }
-            ></input>
-          </div>
-          <div>
-            <label>Hourly Rate: $</label>
-            <input value={editedWage} onChange={(e) => setEditedWage(e.target.value)}
-              placeholder={
-                organisations.find(
-                  (org) => org.id == currentUser.organisation_id
-                ).hourly_rate
-              }
-            ></input>
-          </div>
-          <button onClick={() => onSubmitEdit()}>Submit Changes</button>
-        </div>
-      ) : (
-        <></>
-      )}
-    </div>
-  ) : (
-    <></>
-  );
+//   const yesOrg = currentUser.organisation_id ? (
+//     <div>
+//       <h2>
+//         {
+//           organisations.find((org) => org.id == currentUser.organisation_id)
+//             .name
+//         }
+//       </h2>
+//       <button>View Shifts</button>
+//       <button onClick={() => setEditToggle(!editToggle)}>Edit</button>
+//       <button onClick={() => onLeave()}>Leave</button>
+//       {editToggle ? (
+//         <div>
+//           <div>
+//             <label>Name: </label>
+//             <input onChange={(e) => setEditedName(e.target.value)} value={editedName}
+//               placeholder={
+//                 organisations.find(
+//                   (org) => org.id == currentUser.organisation_id
+//                 ).name
+//               }
+//             ></input>
+//           </div>
+//           <div>
+//             <label>Hourly Rate: $</label>
+//             <input value={editedWage} onChange={(e) => setEditedWage(e.target.value)}
+//               placeholder={
+//                 organisations.find(
+//                   (org) => org.id == currentUser.organisation_id
+//                 ).hourly_rate
+//               }
+//             ></input>
+//           </div>
+//           <button onClick={() => onSubmitEdit()}>Submit Changes</button>
+//         </div>
+//       ) : (
+//         <></>
+//       )}
+    // </div>
+//   ) : (
+//     <></>
+//   );
   return (
-    <div className="home">{currentUser.organisation_id ? yesOrg : noOrg}</div>
+    <div className="home">{currentUser.organisation_id ? <BelongsToOrganisation setCurrentUser={setCurrentUser} currentUser={currentUser} organisations={organisations} setOrganisations={setOrganisations}/> : noOrg}</div>
   );
 }
 

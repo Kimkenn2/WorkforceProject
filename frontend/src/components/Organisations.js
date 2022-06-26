@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function Organisations({ org, setOrganisations, currentUser, setCurrentUser }) {
   const [editToggle, setEditToggle] = useState(false);
-  const [staticName, setStaticName] = useState(org.name);
+//   const [staticName, setStaticName] = useState(org.name);
   const [editedName, setEditedName] = useState(org.name);
   const [editedWage, setEditedWage] = useState(org.hourly_rate);
 
@@ -15,9 +15,12 @@ function Organisations({ org, setOrganisations, currentUser, setCurrentUser }) {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    }).then(() => {
-      setStaticName(editedName);
-    });
+    })
+    // .then(() => {
+    //   setStaticName(editedName);
+    // });
+    .then(resp => resp.json())
+    .then(data => setOrganisations(data))
   }
 
   function onJoin() {
@@ -41,7 +44,7 @@ function Organisations({ org, setOrganisations, currentUser, setCurrentUser }) {
           onChange={(e) => setEditedName(e.target.value)}
         ></input>
       ) : (
-        <span>{staticName} </span>
+        <span>{org.name} </span>
       )}
       <button className="orgButton" onClick={() => setEditToggle(!editToggle)}>
         Edit{" "}
