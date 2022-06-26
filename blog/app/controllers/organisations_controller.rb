@@ -2,8 +2,8 @@ class OrganisationsController < ApplicationController
     before_action :set_organisation, only: [:show, :update, :destroy]
 
     def index
-        orgs = Organisation.all
-        render json: orgs
+        @orgs = Organisation.all
+        render json: @orgs
     end
 
     def create
@@ -18,7 +18,7 @@ class OrganisationsController < ApplicationController
 
     def update
         @org.update(orgparams)
-        render json: @org
+        render json: Organisation.all
     end
 
     def set_organisation

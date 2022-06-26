@@ -11,6 +11,8 @@ function Home({
   const [newOrgName, setNewOrgName] = useState("");
   const [newHourlyRate, setNewHourlyRate] = useState("");
   const [editToggle, setEditToggle] = useState(false);
+  const [editedName, setEditedName] = useState(organisations.find((org) => org.id == currentUser.organisation_id).name)
+  const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
 
   function createandjoin() {
     const org = {
@@ -42,6 +44,21 @@ function Home({
         // .then
         // console.log(returnedOrgData)
       });
+  }
+
+  function onSubmitEdit() {
+    const data = {
+        name: editedName,
+        hourly_rate: editedWage
+    }
+    fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((resp) => resp.json())
+      .then(data => setOrganisations(data))
+    //   .then((data) => setCurrentUser(data));
   }
 
   function onLeave() {
@@ -108,7 +125,7 @@ function Home({
         <div>
           <div>
             <label>Name: </label>
-            <input
+            <input onChange={(e) => setEditedName(e.target.value)} value={editedName}
               placeholder={
                 organisations.find(
                   (org) => org.id == currentUser.organisation_id
@@ -118,7 +135,7 @@ function Home({
           </div>
           <div>
             <label>Hourly Rate: $</label>
-            <input
+            <input value={editedWage} onChange={(e) => setEditedWage(e.target.value)}
               placeholder={
                 organisations.find(
                   (org) => org.id == currentUser.organisation_id
@@ -126,6 +143,7 @@ function Home({
               }
             ></input>
           </div>
+          <button onClick={() => onSubmitEdit()}>Submit Changes</button>
         </div>
       ) : (
         <></>
