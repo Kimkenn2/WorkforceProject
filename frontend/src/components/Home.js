@@ -39,8 +39,21 @@ function Home({currentUser, setCurrentUser, organisations, rerenderOrgs, setOrga
 
     }
 
+    function onLeave() {
+        const data = {
+            organisation_id: null
+        }
+        fetch(`http://localhost:3001/users/${currentUser.id}`, {
+                        method: "PATCH",
+                        headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify(data)
+                    })
+                    .then(resp => resp.json())
+                    .then(data => setCurrentUser(data))
+    }
+
     const renderOrgs = organisations.map(org =>
-        <li><Organisations org={org} setOrganisations={setOrganisations} currentUser={currentUser}/></li>
+        <li><Organisations org={org} setOrganisations={setOrganisations} currentUser={currentUser} setCurrentUser={setCurrentUser}/></li>
         )
     const noOrg = (
         <div>
@@ -62,12 +75,13 @@ function Home({currentUser, setCurrentUser, organisations, rerenderOrgs, setOrga
         </div>
     )
     const yesOrg = (
+        currentUser.organisation_id ? 
         <div>
             <h2>{organisations.find(org => org.id == currentUser.organisation_id).name}</h2>
             <button>View Shifts</button>
             <button>Edit</button>
-            <button>Leave</button>
-        </div>
+            <button onClick={() => onLeave()}>Leave</button>
+        </div> : <></>
     )
     return (
         <div className="home">

@@ -73,3 +73,20 @@ input[type=password], select {
 .home {
   padding-top: 4rem;
 }
+
+.navBarLogoutLink {
+  position: absolute;
+  display: inline;
+  float: right;
+  left: 94%;
+  top: 26%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(122, 122, 122);
+}
+
+.navBarLogoutLink:hover {
+  color: #005499;
+}

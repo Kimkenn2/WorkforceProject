@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function Organisations({org, setOrganisations, currentUser}) {
+function Organisations({org, setOrganisations, currentUser, setCurrentUser}) {
     const [editToggle, setEditToggle] = useState(false)
     const [staticName, setStaticName] = useState(org.name)
     const [editedName, setEditedName] = useState(org.name)
@@ -32,6 +32,8 @@ function onJoin() {
         headers:{'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     })
+    .then(resp => resp.json())
+    .then(data => setCurrentUser(data))
 }
 
 
