@@ -16,6 +16,7 @@ function Home({
 //   const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
 
   function createandjoin() {
+    let newOrgId = {}
     const org = {
       name: newOrgName,
       hourly_rate: Number(newHourlyRate),
@@ -27,24 +28,35 @@ function Home({
     })
       // .then(console.log(res))
       .then((resp) => resp.json())
+      .then(data => newOrgId = {
+        organisation_id: data.id
+      })
       // .then(data => returnedOrgData = data)
-      .then((resp) => {
-        console.log(resp);
+      .then(() => {
+        fetch("http://localhost:3001/organisations")
+    .then(resp => resp.json())
+    .then(orgs => setOrganisations(orgs))
+    .then(() => {
+        fetch(`http://localhost:3001/users/${currentUser.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newOrgId),
+        })
+        .then((resp) => resp.json())
+        .then((data) => setCurrentUser(data));
+    }
+    // newOrgId = {
+        //     organisation_id: resp.id
+        // }
         // res.json().then(console.log(res))
         // console.log(res => res.json(), "t")
-        const newOrgId = {
-          organisation_id: resp.id,
-        };
-        fetch(`http://localhost:3001/users/${currentUser.id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newOrgId),
+        // newOrgId = {
+            //   organisation_id: resp.id,
+            // };
+            // .then
+            // console.log(returnedOrgData)
+            );
         })
-          .then((resp) => resp.json())
-          .then((data) => setCurrentUser(data));
-        // .then
-        // console.log(returnedOrgData)
-      });
   }
 
 //   function onSubmitEdit() {

@@ -7,6 +7,15 @@ function BelongsToOrganisation({currentUser, organisations, setOrganisations, se
   const [editedName, setEditedName] = useState(organisations.find((org) => org.id == currentUser.organisation_id).name)
   const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
 
+//   function getUserandOrg() {
+//     return Promise.all([organisations, currentUser])
+//   }
+
+//   getUserandOrg()
+//   .then(([currentUser, organisations]) => {
+//     // console.log(currentUser, organisations)
+//   })
+
   function onSubmitEdit() {
     setEditToggle(false)
     const data = {
