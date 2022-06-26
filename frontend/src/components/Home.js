@@ -104,6 +104,32 @@ function Home({
       <button>View Shifts</button>
       <button onClick={() => setEditToggle(!editToggle)}>Edit</button>
       <button onClick={() => onLeave()}>Leave</button>
+      {editToggle ? (
+        <div>
+          <div>
+            <label>Name: </label>
+            <input
+              placeholder={
+                organisations.find(
+                  (org) => org.id == currentUser.organisation_id
+                ).name
+              }
+            ></input>
+          </div>
+          <div>
+            <label>Hourly Rate: $</label>
+            <input
+              placeholder={
+                organisations.find(
+                  (org) => org.id == currentUser.organisation_id
+                ).hourly_rate
+              }
+            ></input>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   ) : (
     <></>
