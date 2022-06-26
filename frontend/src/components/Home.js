@@ -4,6 +4,41 @@ import React, {useState, useEffect} from 'react';
 function Home({currentUser, setCurrentUser, organisations}){
     const [newOrgName, setNewOrgName] = useState("")
     const [newHourlyRate, setNewHourlyRate] = useState("")
+
+    function createandjoin() {
+        let returnedOrgData = {}
+        const org = {
+            name: newOrgName,
+            hourly_rate: Number(newHourlyRate)
+        }
+        fetch('http://localhost:3001/organisations',{
+                method: "POST",
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify(org)
+            })
+            // .then(console.log(res))
+            .then(resp => resp.json())
+            // .then(data => returnedOrgData = data)
+            .then(resp => {
+                console.log(resp)
+                    // res.json().then(console.log(res))
+                    // console.log(res => res.json(), "t")
+                    const newOrgId = {
+                        organisation_id: resp.id
+                    }
+                    fetch(`http://localhost:3001/users/${currentUser.id}`, {
+                        method: "PATCH",
+                        headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify(newOrgId
+                        )
+                    })
+                    // .then
+                    // console.log(returnedOrgData)
+                ;
+            })
+
+    }
+
     const renderOrgs = organisations.map(org =>
         <li><Organisations org={org}/></li>
         )
@@ -36,7 +71,7 @@ function Home({currentUser, setCurrentUser, organisations}){
                 <label>Hourly Rate: $</label>
                 <input placeholder="0.00" onChange={(e) => setNewHourlyRate(e.target.value)}></input>
             </div>
-            <button>Create and Join</button>
+            <button onClick={() => createandjoin()}>Create and Join</button>
         </div>
     )
     return (

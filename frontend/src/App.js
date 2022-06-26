@@ -21,7 +21,7 @@ function App() {
     fetch("http://localhost:3001/organisations")
     .then(resp => resp.json())
     .then(orgs => setOrganisations(orgs))
-  })
+  },[])
 
   useEffect(() => {
     fetch("http://localhost:3001/me", {

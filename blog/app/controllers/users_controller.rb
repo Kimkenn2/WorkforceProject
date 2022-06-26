@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :update, :destroy]
 
     def index
         @users = User.all
@@ -6,7 +7,16 @@ class UsersController < ApplicationController
     end
 
     def show
+        @user = User.find(params[:id])
         render json: @user
+    end
+
+    def update
+      if @user.update(user_params)
+        render json: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     end
 
     def showme
@@ -28,7 +38,12 @@ class UsersController < ApplicationController
           end
       end
 
+
+      def set_user
+        @user = User.find(params[:id])
+      end
+
       def user_params
-        params.permit(:name, :password, :email_address, :password_confirmation)
+        params.permit(:name, :password, :organisation_id, :email_address, :password_confirmation)
       end
 end

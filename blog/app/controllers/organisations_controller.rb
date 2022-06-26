@@ -7,6 +7,7 @@ class OrganisationsController < ApplicationController
 
     def create
         org = Organisation.create(orgparams)
+        render json: org
     end
 
     def orgparams
