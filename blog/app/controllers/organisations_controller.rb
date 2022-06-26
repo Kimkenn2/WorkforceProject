@@ -1,4 +1,5 @@
 class OrganisationsController < ApplicationController
+    before_action :set_organisation, only: [:show, :update, :destroy]
 
     def index
         orgs = Organisation.all
@@ -9,6 +10,20 @@ class OrganisationsController < ApplicationController
         org = Organisation.create(orgparams)
         render json: org
     end
+
+    def show
+        @org = Organisation.find(params[:id])
+        render json: @org
+    end
+
+    def update
+        @org.update(orgparams)
+        render json: @org
+    end
+
+    def set_organisation
+        @org = Organisation.find(params[:id])
+      end
 
     def orgparams
         params.permit(:name, :hourly_rate)

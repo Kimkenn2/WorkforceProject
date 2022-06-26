@@ -39,14 +39,19 @@ function App() {
         ;
       }
     });
-  }, []);
+  }, [organisations]);
 
+  function rerenderOrgs() {
+
+  }
   return (
     <div className="App">
       {currentUser ? <h1>Welcome {currentUser.name}</h1> : <h4>Not Signed in</h4>}
-     {currentUser ? <Home currentUser={currentUser} setCurrentUser={setCurrentUser} organisations={organisations}/> : login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : 
+     {currentUser ? <Home rerrenderOrgs={rerenderOrgs()} currentUser={currentUser} setCurrentUser={setCurrentUser} organisations={organisations} setOrganisations={setOrganisations}/> : login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : 
      <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/>}
      {/* <button onClick={() => setLogin(!login)}>ToggleLogin</button> */}
+     <button onClick={() => console.log(currentUser)}>CurrentUser</button>
+     <button onClick={() => setCurrentUser(allUsers[0])}>ELogin</button>
     </div>
   );
 }

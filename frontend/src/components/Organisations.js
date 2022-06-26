@@ -1,11 +1,48 @@
+import React, {useState} from 'react';
+
+function Organisations({org, setOrganisations}) {
+    const [editToggle, setEditToggle] = useState(false)
+    const [staticName, setStaticName] = useState(org.name)
+    const [editedName, setEditedName] = useState(org.name)
+    const [editedWage, setEditedWage] = useState(org.hourly_rate)
+
+    function onUpdate() {
+        let data = {
+            name: editedName,
+            hourly_rate: editedWage
+        }
+        fetch(`http://localhost:3001/organisations/${org.id}`, {
+            method: "PATCH",
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            setStaticName(editedName);
+        }
+        )
+    ;
+}
 
 
-function Organisations({org}) {
     return (
         <div>
-            <span>{org.name}   </span>
-            <span className="orgButton">Edit </span>
-            <span className="orgButton">Join</span>
+            {editToggle ? <input value={editedName} onChange={(e) => setEditedName(e.target.value)}></input>: <span>{staticName}   </span>}
+            <button className="orgButton" onClick={() => setEditToggle(!editToggle)}>Edit </button>
+            {editToggle ? <></> : <button className="orgButton">Join</button>}
+            {editToggle ? <div>
+                <span>
+                    {/* <label>Name: </label>
+                    <input placeholder={org.name} value={editedName} onChange={(e) => setEditedName(e.target.value)}></input> */}
+
+                    <label>Hourly Rate</label>
+                    <input placeholder={org.hourly_rate} value={editedWage} onChange={(e) => setEditedWage(e.target.value)}></input>
+
+                    <button onClick={() => {onUpdate()
+                    setEditToggle(false)
+                    }}>Update</button>
+
+                </span>
+            </div> : <></>}
         </div>
     )
 }

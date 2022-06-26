@@ -1,12 +1,11 @@
 import Organisations from "./Organisations"
 import React, {useState, useEffect} from 'react';
 
-function Home({currentUser, setCurrentUser, organisations}){
+function Home({currentUser, setCurrentUser, organisations, rerenderOrgs, setOrganisations}){
     const [newOrgName, setNewOrgName] = useState("")
     const [newHourlyRate, setNewHourlyRate] = useState("")
 
     function createandjoin() {
-        let returnedOrgData = {}
         const org = {
             name: newOrgName,
             hourly_rate: Number(newHourlyRate)
@@ -29,9 +28,10 @@ function Home({currentUser, setCurrentUser, organisations}){
                     fetch(`http://localhost:3001/users/${currentUser.id}`, {
                         method: "PATCH",
                         headers:{'Content-Type':'application/json'},
-                        body: JSON.stringify(newOrgId
-                        )
+                        body: JSON.stringify(newOrgId)
                     })
+                    .then(resp => resp.json())
+                    .then(data => setCurrentUser(data))
                     // .then
                     // console.log(returnedOrgData)
                 ;
@@ -40,21 +40,8 @@ function Home({currentUser, setCurrentUser, organisations}){
     }
 
     const renderOrgs = organisations.map(org =>
-        <li><Organisations org={org}/></li>
+        <li><Organisations org={org} setOrganisations={setOrganisations}/></li>
         )
-
-    //    function noOrg() {
-    //      if(currentUser.organisation_id == false){
-    //         return(
-    //         <div>
-    //              <p>You aren't a member of any organisations. Join an existing one or create a new one.</p>
-
-    //              <h2>Organisations</h2>
-    //         <ul>
-    //             {renderOrgs}
-    //         </ul>
-    //         </div>
-    //     )}}
     const noOrg = (
         <div>
              <p>You aren't a member of any organisations. Join an existing one or create a new one.</p>
