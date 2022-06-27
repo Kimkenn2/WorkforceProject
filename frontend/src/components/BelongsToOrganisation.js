@@ -1,34 +1,47 @@
-
 import React, { useState, useEffect } from "react";
+import Table from "./Table";
 
-function BelongsToOrganisation({currentUser, organisations, setOrganisations, setCurrentUser}) {
-    
+function BelongsToOrganisation({
+  currentUser,
+  organisations,
+  setOrganisations,
+  setCurrentUser,
+}) {
   const [editToggle, setEditToggle] = useState(false);
-  const [editedName, setEditedName] = useState(organisations.find((org) => org.id == currentUser.organisation_id).name)
-  const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
+  const [editedName, setEditedName] = useState(
+    organisations.find((org) => org.id == currentUser.organisation_id).name
+  );
+  const [editedWage, setEditedWage] = useState(
+    organisations.find((org) => org.id == currentUser.organisation_id)
+      .hourly_rate
+  );
+  const [tableToggle, setTableToggle] = useState(false)
 
-//   function getUserandOrg() {
-//     return Promise.all([organisations, currentUser])
-//   }
+  //   function getUserandOrg() {
+  //     return Promise.all([organisations, currentUser])
+  //   }
 
-//   getUserandOrg()
-//   .then(([currentUser, organisations]) => {
-//     // console.log(currentUser, organisations)
-//   })
+  //   getUserandOrg()
+  //   .then(([currentUser, organisations]) => {
+  //     // console.log(currentUser, organisations)
+  //   })
 
   function onSubmitEdit() {
-    setEditToggle(false)
+    setEditToggle(false);
     const data = {
-        name: editedName,
-        hourly_rate: editedWage
-    }
-    fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
+      name: editedName,
+      hourly_rate: editedWage,
+    };
+    fetch(
+      `http://localhost:3001/organisations/${currentUser.organisation_id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    )
       .then((resp) => resp.json())
-      .then(data => setOrganisations(data))
+      .then((data) => setOrganisations(data));
     //   .then((data) => setCurrentUser(data));
   }
 
@@ -44,45 +57,51 @@ function BelongsToOrganisation({currentUser, organisations, setOrganisations, se
       .then((resp) => resp.json())
       .then((data) => setCurrentUser(data));
   }
-    return(
+  return (
     <div>
-    <h2>
-      {
-        organisations.find((org) => org.id == currentUser.organisation_id)
-          .name
-      }
-    </h2>
-    <button>View Shifts</button>
-    <button onClick={() => setEditToggle(!editToggle)}>Edit</button>
-    <button onClick={() => onLeave()}>Leave</button>
-    {editToggle ?
-      <div>
+      <h2>
+        {
+          organisations.find((org) => org.id == currentUser.organisation_id)
+            .name
+        }
+      </h2>
+      <button onClick={() => setTableToggle(!tableToggle)}>View Shifts</button>
+      <button onClick={() => setEditToggle(!editToggle)}>Edit</button>
+      <button onClick={() => onLeave()}>Leave</button>
+      {editToggle ? (
         <div>
-          <label>Name: </label>
-          <input onChange={(e) => setEditedName(e.target.value)} value={editedName}
-            placeholder={
-              organisations.find(
-                (org) => org.id == currentUser.organisation_id
-              ).name
-            }
-          ></input>
+          <div>
+            <label>Name: </label>
+            <input
+              onChange={(e) => setEditedName(e.target.value)}
+              value={editedName}
+              placeholder={
+                organisations.find(
+                  (org) => org.id == currentUser.organisation_id
+                ).name
+              }
+            ></input>
+          </div>
+          <div>
+            <label>Hourly Rate: $</label>
+            <input
+              value={editedWage}
+              onChange={(e) => setEditedWage(e.target.value)}
+              placeholder={
+                organisations.find(
+                  (org) => org.id == currentUser.organisation_id
+                ).hourly_rate
+              }
+            ></input>
+          </div>
+          <button onClick={() => onSubmitEdit()}>Submit Changes</button>
         </div>
-        <div>
-          <label>Hourly Rate: $</label>
-          <input value={editedWage} onChange={(e) => setEditedWage(e.target.value)}
-            placeholder={
-              organisations.find(
-                (org) => org.id == currentUser.organisation_id
-              ).hourly_rate
-            }
-          ></input>
-        </div>
-        <button onClick={() => onSubmitEdit()}>Submit Changes</button>
-      </div>
-    : <></>}
-      </div>)
-    ;
-    
+      ) : (
+        <></>
+      )}
+      {tableToggle ? <Table /> : <></>}
+    </div>
+  );
 }
 
-export default BelongsToOrganisation
+export default BelongsToOrganisation;
