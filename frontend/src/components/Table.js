@@ -25,6 +25,9 @@ function Table() {
                         <td>5.5</td>
                         <td>88</td>
                     </tr>
+                    <tr>
+                        <td>A</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

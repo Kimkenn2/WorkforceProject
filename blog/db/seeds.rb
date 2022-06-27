@@ -11,6 +11,17 @@ User.create([
         name: "Kenneth",
         password: "123",
         email_address: "kkm2059@gmail.com"
+    },
+    {
+        name: "TestAcc",
+        password: "123",
+        email_address: "testacc@gmail.com"
+    },
+    {
+        name:"Wawa",
+        password: "123",
+        email_address: "wawa@gmail.com",
+        organisation_id: 1
     }
 ])
 
@@ -26,5 +37,20 @@ Organisation.create([
     {
         name: "Loger's",
         hourly_rate: 11.00
+    }
+])
+
+Shift.create([
+    {
+        user_id: 1,
+        start: "2022-06-19 13:00:00",
+        finish: "2022-06-19 19:00:00",
+        break_length: 30,
+    },
+    {
+        user_id: 2,
+        start: "2022-06-19 19:00:00",
+        finish: "2022-06-19 23:00:00",
+        break_length: 15
     }
 ])
