@@ -117,7 +117,7 @@ function BelongsToOrganisation({
       ) : (
         <></>
       )}
-      {tableToggle ? <Table currentOrg={currentOrg} currentUser={currentUser} currentOrgShifts={currentOrgShifts}/> : <></>}
+      {tableToggle ? <Table organisations={organisations} currentOrg={currentOrg} currentUser={currentUser} currentOrgShifts={currentOrgShifts}/> : <></>}
     </div>
   );
 }
