@@ -21,6 +21,11 @@ class OrganisationsController < ApplicationController
         render json: orgusers
     end
 
+    def orgshifts
+        orgshifts = Organisation.find(params[:id]).shifts
+        render json: orgshifts
+    end
+
     def update
         @org.update(orgparams)
         render json: Organisation.all
