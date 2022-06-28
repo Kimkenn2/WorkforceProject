@@ -56,8 +56,16 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations}) {
                     </tr>
                 </thead>
                 <tbody>
-                    
                     {renderShifts}
+                    <tr>
+                        <td><input/></td>
+                        <td><input/></td>
+                        <td><input/></td>
+                        <td><input/></td>
+                        <td><input/></td>
+                        <td><input/></td>
+                        <td><input/></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
