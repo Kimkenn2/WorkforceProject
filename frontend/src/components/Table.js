@@ -1,6 +1,13 @@
 
 
-function Table({currentOrg, currentUser, currentOrgUsers}) {
+function Table({currentOrg, currentUser, currentOrgShifts}) {
+
+    const renderShifts = currentOrgShifts.map(shift => (
+        <tr>
+            <th>{shift.user.name}</th>
+            <th>{shift.start.toDateString()}</th>
+        </tr>
+    ))
     return(
         <div className="tableContainer">
             <table>
@@ -25,9 +32,7 @@ function Table({currentOrg, currentUser, currentOrgUsers}) {
                         <td>5.5</td>
                         <td>88</td>
                     </tr>
-                    <tr>
-                        <td>A</td>
-                    </tr>
+                    {renderShifts}
                 </tbody>
             </table>
         </div>
