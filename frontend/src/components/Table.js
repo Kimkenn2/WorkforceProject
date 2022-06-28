@@ -1,6 +1,6 @@
 
 
-function Table() {
+function Table({currentOrg, currentUser, currentOrgUsers}) {
     return(
         <div className="tableContainer">
             <table>
