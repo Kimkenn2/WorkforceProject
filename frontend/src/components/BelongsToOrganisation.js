@@ -15,6 +15,9 @@ function BelongsToOrganisation({
     organisations.find((org) => org.id == currentUser.organisation_id)
       .hourly_rate
   );
+  const [currentOrg, setCurrentOrg] = useState(
+    organisations.find((org) => org.id == currentUser.organisation_id)
+  )
   const [tableToggle, setTableToggle] = useState(false)
 
   //   function getUserandOrg() {
@@ -107,7 +110,7 @@ function BelongsToOrganisation({
       ) : (
         <></>
       )}
-      {tableToggle ? <Table /> : <></>}
+      {tableToggle ? <Table currentOrg={currentOrg} currentUser={currentUser}/> : <></>}
     </div>
   );
 }

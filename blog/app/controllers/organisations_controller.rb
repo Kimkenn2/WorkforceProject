@@ -16,6 +16,11 @@ class OrganisationsController < ApplicationController
         render json: @org
     end
 
+    def orgusers
+        orgusers = Organisation.find(params[:id]).users
+        render json: orgusers
+    end
+
     def update
         @org.update(orgparams)
         render json: Organisation.all

@@ -7,7 +7,7 @@ import NavBar from './components/NavBar';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
-  const [authenticated, setAuthenticated] = useState(false);
+  // const [authenticated, setAuthenticated] = useState(false);
   const [allUsers, setAllUsers] = useState([])
   const [login, setLogin] = useState(true)
   const [organisations, setOrganisations] = useState([])
@@ -24,31 +24,27 @@ function App() {
     .then(orgs => setOrganisations(orgs))
   },[])
 
-  useEffect(() => {
-    fetch("http://localhost:3001/me", {
-      credentials: "include",
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => {
-          setCurrentUser(user);
-          setAuthenticated(true);
-          console.log(user)
-        });
-      } else {
-        setAuthenticated(true)
-        console.log(res)
-        ;
-      }
-    });
-  }, [organisations]);
-
-  function rerenderOrgs() {
-
-  }
+  // useEffect(() => {
+  //   fetch("http://localhost:3001/me", {
+  //     credentials: "include",
+  //   }).then((res) => {
+  //     if (res.ok) {
+  //       res.json().then((user) => {
+  //         setCurrentUser(user);
+  //         setAuthenticated(true);
+  //         console.log(user)
+  //       });
+  //     } else {
+  //       setAuthenticated(true)
+  //       console.log(res)
+  //       ;
+  //     }
+  //   });
+  // }, [organisations]);
   return (
     <div className="App">
       <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-     {currentUser ? <Home rerrenderOrgs={rerenderOrgs()} currentUser={currentUser} setCurrentUser={setCurrentUser} organisations={organisations} setOrganisations={setOrganisations}/> : login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : 
+     {currentUser ? <Home currentUser={currentUser} setCurrentUser={setCurrentUser} organisations={organisations} setOrganisations={setOrganisations}/> : login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : 
      <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/>}
     </div>
   );

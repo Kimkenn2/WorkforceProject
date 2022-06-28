@@ -6,7 +6,6 @@ function Home({
   currentUser,
   setCurrentUser,
   organisations,
-  rerenderOrgs,
   setOrganisations,
 }) {
   const [newOrgName, setNewOrgName] = useState("");
