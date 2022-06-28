@@ -10,12 +10,14 @@ User.create([
     {
         name: "Kenneth",
         password: "123",
-        email_address: "kkm2059@gmail.com"
+        email_address: "kkm2059@gmail.com",
+        organisation_id: 1
     },
     {
         name: "TestAcc",
         password: "123",
-        email_address: "testacc@gmail.com"
+        email_address: "testacc@gmail.com",
+        organisation_id: 1
     },
     {
         name:"Wawa",
@@ -24,6 +26,8 @@ User.create([
         organisation_id: 1
     }
 ])
+
+puts "users created"
 
 Organisation.create([
     {
@@ -40,6 +44,8 @@ Organisation.create([
     }
 ])
 
+puts "orgs created"
+
 Shift.create([
     {
         user_id: 1,
@@ -54,3 +60,7 @@ Shift.create([
         break_length: 15
     }
 ])
+
+puts "shifts created"
+
+puts "all done!"
