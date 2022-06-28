@@ -19,7 +19,7 @@ function BelongsToOrganisation({
     organisations.find((org) => org.id == currentUser.organisation_id)
   )
   const [tableToggle, setTableToggle] = useState(false)
-  const [currentOrgUsers, setCurrentOrgUsers] = useState([])
+  const [currentOrgShifts, setCurrentOrgShifts] = useState([])
 
   //   function getUserandOrg() {
   //     return Promise.all([organisations, currentUser])
@@ -30,9 +30,9 @@ function BelongsToOrganisation({
   //     // console.log(currentUser, organisations)
   //   })
 
-  useEffect(fetch(`http://localhost:3001/organisations/${currentOrg}/users`)
+  useEffect(fetch(`http://localhost:3001/organisations/${currentOrg}/shifts`)
   .then(resp => resp.json())
-  .then(data => setCurrentOrgUsers(data)),[])
+  .then(data => setCurrentOrgShifts(data)),[])
 
     
 
