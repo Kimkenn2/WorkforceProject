@@ -48,6 +48,7 @@ function Login ({setCurrentUser, login, setLogin}){
             </form>
             
      {login ? <a className='bottext' onClick={() => setLogin(!login)}>Signup</a> : <a className='bottext'onClick={() => setLogin(!login)}>Login</a>}
+     <p>Forgot Password?</p>
         </div>
     )
 }
