@@ -73,7 +73,12 @@ function BelongsToOrganisation({
       body: JSON.stringify(data),
     })
       .then((resp) => resp.json())
-      .then((data) => setCurrentUser(data));
+      .then((data) => setCurrentUser(data))
+      .then(() => {
+        fetch(`http://localhost:3001/shifts/${currentUser.id}`, {
+          method: "DELETE"
+        })
+      })
   }
   return (
     <div>

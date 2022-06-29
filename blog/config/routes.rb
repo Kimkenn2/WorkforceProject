@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   post "/createshift", to: "organisations#createorgshift"
   delete "/logout", to: "sessions#destroy"
+  delete "/shifts/:id", to: "shifts#destroy"
 end
