@@ -30,7 +30,7 @@ function BelongsToOrganisation({
   //     // console.log(currentUser, organisations)
   //   })
   useEffect(() => {
-    fetch(`http://localhost:3001/organisations/1/shifts`)
+    fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}/shifts`)
     .then(resp => resp.json())
     .then(data => setCurrentOrgShifts(data))
   },[])
@@ -117,7 +117,7 @@ function BelongsToOrganisation({
       ) : (
         <></>
       )}
-      {tableToggle ? <Table organisations={organisations} currentOrg={currentOrg} currentUser={currentUser} currentOrgShifts={currentOrgShifts}/> : <></>}
+      {tableToggle ? <Table organisations={organisations} currentOrg={currentOrg} currentUser={currentUser} currentOrgShifts={currentOrgShifts} setCurrentOrgShifts={setCurrentOrgShifts}/> : <></>}
     </div>
   );
 }

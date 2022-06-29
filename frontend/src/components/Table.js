@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 
-function Table({currentOrg, currentUser, currentOrgShifts, organisations}) {
+function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCurrentOrgShifts}) {
     const [newShiftDate, setNewShiftDate] = useState('')
     const [newStartTime, setNewStartTime] = useState('')
     const [newFinishTime, setNewFinishTime] = useState('')
     const [newBreakLength, setNewBreakLength] = useState('')
+     
 
     const renderShifts = currentOrgShifts.map(shift => {
         const rawStartDate = new Date(shift.start)
@@ -45,9 +46,49 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations}) {
     //         </tr>
     //     }
     // }
+    function convertTime(timeStr) {
+        // if(timeStr.length < 8 && timeStr[0] !== "0"){
+        //     timeStr = 0 + timeStr
+        // }
+        const [time, modifier] = timeStr.split(' ');
+        let [hours, minutes] = time.split(':');
+        if (hours === '12') {
+           hours = '00';
+        }
+        if (modifier.toLowerCase() === 'pm') {
+           hours = parseInt(hours, 10) + 12;
+        }
+        return `${hours}:${minutes}:00`;
+     };
 
     function createShift() {
-        
+        let array = newShiftDate.split("/")
+        array.unshift(array.pop())
+        let formattedStartDate = array.join("-")
+
+        let formattedStartTime = convertTime(newStartTime)
+        let formattedFinishTime = convertTime(newFinishTime)
+
+        // const formattedStartDate = ((newShiftDate.split("/")).unshift(newShiftDate.split("/").pop())).join("-")
+        const shiftData = {
+            user_id: currentUser.id,
+            start: (`${formattedStartDate} ${convertTime(formattedStartDate)}`),
+            finish: (`${formattedStartDate} ${convertTime(formattedFinishTime)}`),
+            break_length: newBreakLength
+        }
+
+        console.log("test", shiftData)
+
+        fetch("http://localhost:3001/createshift", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(shiftData),
+    })
+    .then(resp => resp.json())
+    .then( data =>
+        // console.log(data)
+    setCurrentOrgShifts([...currentOrgShifts, data])
+    )
     }
     return(
         <div className="tableContainer">

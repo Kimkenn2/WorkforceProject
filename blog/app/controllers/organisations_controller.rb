@@ -26,6 +26,12 @@ class OrganisationsController < ApplicationController
         render json: orgshifts
     end
 
+    def createorgshift
+        shift = Shift.create(orgshiftparams)
+        render json: shift
+        # render json: Organisation.find(id: (User.where(id: shift.user_id)).organisation_id).shifts
+    end
+
     def update
         @org.update(orgparams)
         render json: Organisation.all
@@ -37,5 +43,9 @@ class OrganisationsController < ApplicationController
 
     def orgparams
         params.permit(:name, :hourly_rate)
+    end
+
+    def orgshiftparams
+        params.permit(:start, :finish, :break_length, :user_id)
     end
 end

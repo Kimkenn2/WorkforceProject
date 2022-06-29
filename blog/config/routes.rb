@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get '/organisations/:id/users', to: "organisations#orgusers"
   get '/organisations/:id/shifts', to: "organisations#orgshifts"
   post "/login", to: "sessions#create"
+  post "/createshift", to: "organisations#createorgshift"
   delete "/logout", to: "sessions#destroy"
 end
