@@ -28,6 +28,7 @@ class OrganisationsController < ApplicationController
 
     def createorgshift
         shift = Shift.create(orgshiftparams)
+        # shift.start.parse datetime rescue nil
         render json: shift
         # render json: Organisation.find(id: (User.where(id: shift.user_id)).organisation_id).shifts
     end

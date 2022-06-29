@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import moment from 'moment'
 
 function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCurrentOrgShifts}) {
     const [newShiftDate, setNewShiftDate] = useState('')
@@ -8,18 +9,42 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
      
 
     const renderShifts = currentOrgShifts.map(shift => {
+        // console.log(shift, "shift", shift.user.name)
         const rawStartDate = new Date(shift.start)
+        var stillUtc = moment.utc(shift.start).toDate();
+        var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
+        // console.log(local, "local")
+
+
+
+        // const rawStartDate = moment(shift.start).format
+        // const rawStartDate = moment(shift.start).format()
         const rawFinishDate = new Date(shift.finish)
+
+        // const start_time_hour = rawStartDate.getHours()
+
+        // console.log(start_time_hour)
+        // console.log(rawStartDate, "raww")
+//         const date = moment.utc().format()
+//         console.log(date, "- now in UTC"); 
+
+//         var local = moment.utc(date).local().format();
+// console.log(local, "- UTC now to local"); 
+
+// console.log("please work", moment.utc(shift.start).local().format(), "did you work?")
 
         const start_readable_date = new Date(shift.start).toLocaleDateString()
         const start_time = new Date(shift.start).toLocaleTimeString('en-US',{
             hour: 'numeric',
             minute: 'numeric',
+            TimeZone: 'EST',
             hour12: true
         })
-        const finish_time =new Date(shift.finish).toLocaleTimeString('en-US',{
+        // console.log(start_time)
+        const finish_time = new Date(shift.finish).toLocaleTimeString('en-US',{
             hour: 'numeric',
             minute: 'numeric',
+            TimeZone: 'EST',
             hour12: true
         })
         const hours_worked = ((((rawFinishDate - rawStartDate)/1000)/60) - shift.break_length)/60
@@ -69,15 +94,14 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
         let formattedStartTime = convertTime(newStartTime)
         let formattedFinishTime = convertTime(newFinishTime)
 
-        // const formattedStartDate = ((newShiftDate.split("/")).unshift(newShiftDate.split("/").pop())).join("-")
         const shiftData = {
             user_id: currentUser.id,
-            start: (`${formattedStartDate} ${convertTime(formattedStartDate)}`),
-            finish: (`${formattedStartDate} ${convertTime(formattedFinishTime)}`),
+            start: new Date(`${formattedStartDate} ${(formattedStartTime)}`),
+            finish: new Date(`${formattedStartDate} ${(formattedFinishTime)}`),
             break_length: newBreakLength
         }
 
-        console.log("test", shiftData)
+        // console.log("test", shiftData)
 
         fetch("http://localhost:3001/createshift", {
       method: "POST",
@@ -85,9 +109,10 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
       body: JSON.stringify(shiftData),
     })
     .then(resp => resp.json())
-    .then( data =>
-        // console.log(data)
+    .then( data => {
+        // console.log(data, "data")
     setCurrentOrgShifts([...currentOrgShifts, data])
+    }
     )
     }
     return(
@@ -108,11 +133,11 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
                     {renderShifts}
                     <tr>
                         <td>{currentUser.name}</td>
-                        <td><input onChange={(e) => setNewShiftDate(e.target.value)}/></td>
-                        <td><input onChange={(e) => setNewStartTime(e.target.value)}/></td>
-                        <td><input onChange={(e) => setNewFinishTime(e.target.value)}/></td>
-                        <td><input onChange={(e) => setNewBreakLength(e.target.value)}/></td>
-                        <td colspan="2"><button onClick={() => createShift()}>Create Shift</button></td>
+                        <td><input onChange={(e) => setNewShiftDate(e.target.value)} placeholder={"mm/dd/yyyy"}/></td>
+                        <td><input onChange={(e) => setNewStartTime(e.target.value)} placeholder={"hh:mm mm"}/></td>
+                        <td><input onChange={(e) => setNewFinishTime(e.target.value)} placeholder={"hh:mm mm"}/></td>
+                        <td><input onChange={(e) => setNewBreakLength(e.target.value)} placeholder={"00"}/></td>
+                        <td colSpan="2"><button onClick={() => createShift()}>Create Shift</button></td>
                     </tr>
                 </tbody>
             </table>
