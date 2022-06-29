@@ -58,7 +58,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
             <td>{finish_time}</td>
             <td>{shift.break_length}</td>
             <td>{hours_worked}</td>
-            <td>{shift_cost}</td>
+            <td>{Math.round(shift_cost*100)/100}</td>
 
         </tr>
     )})
