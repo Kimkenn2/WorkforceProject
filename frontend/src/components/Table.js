@@ -1,6 +1,10 @@
-
+import React, {useState} from 'react'
 
 function Table({currentOrg, currentUser, currentOrgShifts, organisations}) {
+    const [newShiftDate, setNewShiftDate] = useState('')
+    const [newStartTime, setNewStartTime] = useState('')
+    const [newFinishTime, setNewFinishTime] = useState('')
+    const [newBreakLength, setNewBreakLength] = useState('')
 
     const renderShifts = currentOrgShifts.map(shift => {
         const rawStartDate = new Date(shift.start)
@@ -41,6 +45,10 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations}) {
     //         </tr>
     //     }
     // }
+
+    function createShift() {
+        
+    }
     return(
         <div className="tableContainer">
             <table>
@@ -58,13 +66,12 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations}) {
                 <tbody>
                     {renderShifts}
                     <tr>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
+                        <td>{currentUser.name}</td>
+                        <td><input onChange={(e) => setNewShiftDate(e.target.value)}/></td>
+                        <td><input onChange={(e) => setNewStartTime(e.target.value)}/></td>
+                        <td><input onChange={(e) => setNewFinishTime(e.target.value)}/></td>
+                        <td><input onChange={(e) => setNewBreakLength(e.target.value)}/></td>
+                        <td colspan="2"><button onClick={() => createShift()}>Create Shift</button></td>
                     </tr>
                 </tbody>
             </table>
