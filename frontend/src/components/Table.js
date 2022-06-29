@@ -88,16 +88,26 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
 
     function createShift() {
         let array = newShiftDate.split("/")
+        let finisharray = newShiftDate.split("/")
+        console.log(newStartTime > newFinishTime)
+        if(newStartTime > newFinishTime){
+            finisharray[1] = (Number(array[1])+1).toString()
+            console.log(finisharray)
+        }
         array.unshift(array.pop())
         let formattedStartDate = array.join("-")
+        let formattedFinishDate = finisharray.join("-")
 
         let formattedStartTime = convertTime(newStartTime)
         let formattedFinishTime = convertTime(newFinishTime)
+        // if(newStartTime > newFinishTime){
+        //     return()
+        // }
 
         const shiftData = {
             user_id: currentUser.id,
             start: new Date(`${formattedStartDate} ${(formattedStartTime)}`),
-            finish: new Date(`${formattedStartDate} ${(formattedFinishTime)}`),
+            finish: new Date(`${formattedFinishDate} ${(formattedFinishTime)}`),
             break_length: newBreakLength
         }
 
