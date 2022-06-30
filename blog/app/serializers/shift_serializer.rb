@@ -1,4 +1,4 @@
 class ShiftSerializer < ActiveModel::Serializer
-  attributes :id, :start, :finish, :break_length
+  attributes :id, :start, :finish
   has_one :user
 end

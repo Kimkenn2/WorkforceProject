@@ -51,13 +51,13 @@ Shift.create([
         user_id: 1,
         start: "2022-06-19 13:00:00",
         finish: "2022-06-19 19:00:00",
-        break_length: 30,
+        break_length:"20, 30"
     },
     {
         user_id: 2,
         start: "2022-06-19 19:00:00",
         finish: "2022-06-19 23:00:00",
-        break_length: 15
+        break_length: "10, 15"
     }
 ])
 
