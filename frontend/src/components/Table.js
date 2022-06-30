@@ -17,6 +17,10 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
         var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
         // console.log(local, "local")
 
+        //Calculating Total Break Length
+        let breakarray = shift.break_length.split(", ").map(Number)
+        let sumbreak = breakarray.reduce((a,b) => a+b, 0)
+        console.log(breakarray, "arraay")
 
 
         // const rawStartDate = moment(shift.start).format
@@ -49,7 +53,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
             TimeZone: 'EST',
             hour12: true
         })
-        const hours_worked = ((((rawFinishDate - rawStartDate)/1000)/60) - shift.break_length)/60
+        const hours_worked = ((((rawFinishDate - rawStartDate)/1000)/60) - sumbreak)/60
 
         const shift_cost = organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate*hours_worked
         return(
@@ -59,7 +63,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
             <td>{start_time}</td>
             <td>{finish_time}</td>
             <td>{shift.break_length}</td>
-            <td>{hours_worked}</td>
+            <td>{Math.round(hours_worked*100)/100}</td>
             <td>{Math.round(shift_cost*100)/100}</td>
 
         </tr>
