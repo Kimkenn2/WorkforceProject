@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import moment from 'moment'
 import BreakLengths from './BreakLengths'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
 
 function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCurrentOrgShifts}) {
     const [newShiftDate, setNewShiftDate] = useState('')
@@ -8,13 +10,42 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
     const [newFinishTime, setNewFinishTime] = useState('')
     // const [newBreakLength, setNewBreakLength] = useState('')
     const [tags, setTags] = useState([])
-     
+    const [searchName, setSearchName] = useState('')
+    const [calendarToggle, setCalendarToggle] = useState(false)
+    const [calendarStartDate, setCalendarStartDate] = useState(new Date());
+    const [calendarEndDate, setCalendarEndDate] = useState(new Date());
 
-    const renderShifts = currentOrgShifts.map(shift => {
+    const onStartDateChange = (newDate) => {
+        setCalendarStartDate(newDate);
+        console.log(newDate);
+    }
+
+    const onEndDateChange = (newDate) => {
+        setCalendarEndDate(newDate);
+        console.log(newDate);
+    }
+    
+    function searchedEmployees() {
+        if(searchName == ''){
+            return currentOrgShifts
+        } else {
+            return currentOrgShifts.filter(shift => shift.user.name.toLowerCase().includes(searchName.toLowerCase()))
+        }
+    }
+    
+    
+   function searchCalendar() {
+       if(calendarToggle == false){
+           return searchedEmployees()
+       } else {
+           return searchedEmployees().filter(shift => new Date(shift.start).getTime() >= calendarStartDate.getTime() && new Date(shift.start).getTime() <= (calendarEndDate.getTime() + 86399000))
+       }
+   }
+    const renderShifts = searchCalendar().map(shift => {
         // console.log(shift, "shift", shift.user.name)
         const rawStartDate = new Date(shift.start)
-        var stillUtc = moment.utc(shift.start).toDate();
-        var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
+        // var stillUtc = moment.utc(shift.start).toDate();
+        // var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
         // console.log(local, "local")
 
         //Calculating Total Break Length
@@ -137,6 +168,35 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
     }
     return(
         <div className="tableContainer">
+            <div>
+            <label>Search for Employee: </label>
+            <input placeholder='Name' onChange={(e) => setSearchName(e.target.value)}></input>
+
+            </div>
+            <button onClick={() => setCalendarToggle(!calendarToggle)}>Search for Dates: </button>
+            {calendarToggle ? <div className='calendarContainer'>
+            <h4>
+                Start Date:
+            <Calendar
+        onChange={onStartDateChange}
+        value={calendarStartDate}
+        showNeighboringMonth={true}
+        locale={"en-US"}
+        className={"calendar"}
+     />
+            </h4>
+            <h4>
+                End Date:
+                <Calendar
+        onChange={onEndDateChange}
+        value={calendarEndDate}
+        showNeighboringMonth={true}
+        locale={"en-US"}
+        className={"calendar"}
+     />
+            </h4>
+
+            </div> : <></>}
             <table>
                 <thead>
                     <tr>
@@ -164,6 +224,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
                     </tr>
                 </tbody>
             </table>
+            <button onClick={() => console.log(calendarStartDate, calendarEndDate, "t", calendarEndDate.getTime())}>Calendar</button>
         </div>
     )
 }

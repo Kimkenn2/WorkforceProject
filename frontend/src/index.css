@@ -120,3 +120,15 @@ input[type=password], select {
   margin:auto;
   justify-content: center;
 }
+
+.calendar {
+  position: relative;
+  margin: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.calendarContainer {
+  display: flex;
+  justify-content: center;
+}
