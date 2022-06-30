@@ -6,7 +6,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
     const [newShiftDate, setNewShiftDate] = useState('')
     const [newStartTime, setNewStartTime] = useState('')
     const [newFinishTime, setNewFinishTime] = useState('')
-    const [newBreakLength, setNewBreakLength] = useState('')
+    // const [newBreakLength, setNewBreakLength] = useState('')
     const [tags, setTags] = useState([])
      
 
@@ -96,7 +96,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
         let array = newShiftDate.split("/")
         let finisharray = newShiftDate.split("/")
         console.log(newStartTime > newFinishTime)
-        if(newStartTime > newFinishTime){
+        if(newStartTime[newStartTime.length - 2] > newFinishTime[newFinishTime.length - 2]){
             finisharray[1] = (Number(array[1])+1).toString()
             console.log(finisharray)
         }
@@ -114,7 +114,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
             user_id: currentUser.id,
             start: new Date(`${formattedStartDate} ${(formattedStartTime)}`),
             finish: new Date(`${formattedFinishDate} ${(formattedFinishTime)}`),
-            break_length: newBreakLength
+            break_length: tags.join(", ")
         }
 
         // console.log("test", shiftData)
@@ -130,6 +130,10 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
     setCurrentOrgShifts([...currentOrgShifts, data])
     }
     )
+    setNewShiftDate('')
+    setNewStartTime('')
+    setNewFinishTime('')
+    setTags([])
     }
     return(
         <div className="tableContainer">
@@ -149,9 +153,9 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
                     {renderShifts}
                     <tr>
                         <td>{currentUser.name}</td>
-                        <td><input onChange={(e) => setNewShiftDate(e.target.value)} placeholder={"mm/dd/yyyy"}/></td>
-                        <td><input onChange={(e) => setNewStartTime(e.target.value)} placeholder={"hh:mm mm"}/></td>
-                        <td><input onChange={(e) => setNewFinishTime(e.target.value)} placeholder={"hh:mm mm"}/></td>
+                        <td><input onChange={(e) => setNewShiftDate(e.target.value)} value={newShiftDate} placeholder={"mm/dd/yyyy"}/></td>
+                        <td><input onChange={(e) => setNewStartTime(e.target.value)} value={newStartTime} placeholder={"hh:mm mm"}/></td>
+                        <td><input onChange={(e) => setNewFinishTime(e.target.value)} value={newFinishTime} placeholder={"hh:mm mm"}/></td>
                         <td>
                             {/* <input onChange={(e) => setNewBreakLength(e.target.value)} placeholder={"00"} /> */}
                             <BreakLengths tags={tags} setTags={setTags}/>
