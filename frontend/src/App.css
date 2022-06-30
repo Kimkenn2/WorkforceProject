@@ -83,3 +83,23 @@ table.form td:last-child {
 table.form * {
   font-size: 28px;
 }
+
+.tag-item{
+  background-color: rgb(218, 216, 216);
+  display: inline-block;
+  padding: .25em .4em;
+  border-radius: 20px;
+}
+.tag-item .close{
+  height: 17px;
+  width: 17px;
+  background-color: rgb(48, 48, 48);
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: .5em;
+  font-size: 18px;
+  cursor: pointer;
+}

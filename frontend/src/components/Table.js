@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 import moment from 'moment'
+import BreakLengths from './BreakLengths'
 
 function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCurrentOrgShifts}) {
     const [newShiftDate, setNewShiftDate] = useState('')
     const [newStartTime, setNewStartTime] = useState('')
     const [newFinishTime, setNewFinishTime] = useState('')
     const [newBreakLength, setNewBreakLength] = useState('')
+    const [tags, setTags] = useState([])
      
 
     const renderShifts = currentOrgShifts.map(shift => {
@@ -146,7 +148,10 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
                         <td><input onChange={(e) => setNewShiftDate(e.target.value)} placeholder={"mm/dd/yyyy"}/></td>
                         <td><input onChange={(e) => setNewStartTime(e.target.value)} placeholder={"hh:mm mm"}/></td>
                         <td><input onChange={(e) => setNewFinishTime(e.target.value)} placeholder={"hh:mm mm"}/></td>
-                        <td><input onChange={(e) => setNewBreakLength(e.target.value)} placeholder={"00"}/></td>
+                        <td>
+                            {/* <input onChange={(e) => setNewBreakLength(e.target.value)} placeholder={"00"} /> */}
+                            <BreakLengths tags={tags} setTags={setTags}/>
+                            </td>
                         <td colSpan="2"><button onClick={() => createShift()}>Create Shift</button></td>
                     </tr>
                 </tbody>
