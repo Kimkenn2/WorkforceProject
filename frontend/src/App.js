@@ -4,6 +4,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
 import NavBar from './components/NavBar';
+import EditProfile from './components/EditProfile';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -11,6 +12,7 @@ function App() {
   const [allUsers, setAllUsers] = useState([])
   const [login, setLogin] = useState(true)
   const [organisations, setOrganisations] = useState([])
+  const [editSelf, setEditSelf] = useState(false)
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -43,7 +45,10 @@ function App() {
   // }, [organisations]);
   return (
     <div className="App">
-      <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+      <span>
+      {editSelf ? <EditProfile allUsers={allUsers} currentUser={currentUser} setEditSelf={setEditSelf}/> : <></>}
+      </span>
+      <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} editSelf={editSelf} setEditSelf={setEditSelf}/>
      {currentUser ? <Home currentUser={currentUser} setCurrentUser={setCurrentUser} organisations={organisations} setOrganisations={setOrganisations}/> : login ? <Login setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/> : 
      <Signup currentUser={currentUser} allUsers={allUsers} setCurrentUser={setCurrentUser} login={login} setLogin={setLogin}/>}
     </div>
