@@ -51,7 +51,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
         //Calculating Total Break Length
         let breakarray = shift.break_length.split(", ").map(Number)
         let sumbreak = breakarray.reduce((a,b) => a+b, 0)
-        console.log(breakarray, "arraay")
+        // console.log(breakarray, "arraay")
 
 
         // const rawStartDate = moment(shift.start).format
