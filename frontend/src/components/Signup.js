@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Signup({ currentUser, setCurrentUser, allUsers, login, setLogin }) {
+function Signup({setCurrentUser, allUsers, login, setLogin }) {
   const [name, setName] = useState();
   const [password, setPassword] = useState();
   const [comPassword, setComPassword] = useState();

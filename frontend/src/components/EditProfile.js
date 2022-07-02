@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 
 function EditProfile({ currentUser, setCurrentUser, allUsers, setEditSelf, login, setLogin }) {
   const [name, setName] = useState();
