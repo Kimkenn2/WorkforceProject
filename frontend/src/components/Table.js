@@ -92,7 +92,9 @@ function Table({currentUser, currentOrgShifts, organisations, setCurrentOrgShift
         let array = newShiftDate.split("/")
         let finisharray = newShiftDate.split("/")
         console.log(newStartTime > newFinishTime)
-        if(newStartTime[newStartTime.length - 2] > newFinishTime[newFinishTime.length - 2]){
+        // if start time == PM and finish time == AM, add one day to finish time
+        // or if start time > finish time, add one day to finish time
+        if(newStartTime[newStartTime.length - 2] > newFinishTime[newFinishTime.length - 2] || newStartTime > newFinishTime){
             finisharray[1] = (Number(array[1])+1).toString()
             console.log(finisharray)
         }
