@@ -20,29 +20,11 @@ function BelongsToOrganisation({
   )
   const [tableToggle, setTableToggle] = useState(false)
   const [currentOrgShifts, setCurrentOrgShifts] = useState([])
-
-  //   function getUserandOrg() {
-  //     return Promise.all([organisations, currentUser])
-  //   }
-
-  //   getUserandOrg()
-  //   .then(([currentUser, organisations]) => {
-  //     // console.log(currentUser, organisations)
-  //   })
   useEffect(() => {
     fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}/shifts`)
     .then(resp => resp.json())
     .then(data => setCurrentOrgShifts(data))
   },[])
-  
-
-    
-
-
-
-
-
-
 
   function onSubmitEdit() {
     setEditToggle(false);
@@ -60,7 +42,6 @@ function BelongsToOrganisation({
     )
       .then((resp) => resp.json())
       .then((data) => setOrganisations(data));
-    //   .then((data) => setCurrentUser(data));
   }
 
   function onLeave() {

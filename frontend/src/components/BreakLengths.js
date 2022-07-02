@@ -26,10 +26,7 @@ function BreakLengths({tags, setTags}){
                 <span className="close" onClick={() => removeTag(index)}>&times;</span>
             </div>
         )) }
-                {/* <span className="text">hello</span> */}
-                {/* <span className="close">&times;</span> */}
             <input onKeyDown={(e) => handleKeyDown(e)} className="breaks-input" placeholder="Add 1 or More Breaks" />
-            {/* <button onClick={() => console.log(tags.join(", "))}></button> */}
         </div>
     )
 }

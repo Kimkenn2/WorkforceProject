@@ -8,7 +8,6 @@ import EditProfile from './components/EditProfile';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
-  // const [authenticated, setAuthenticated] = useState(false);
   const [allUsers, setAllUsers] = useState([])
   const [login, setLogin] = useState(true)
   const [organisations, setOrganisations] = useState([])
@@ -25,24 +24,6 @@ function App() {
     .then(resp => resp.json())
     .then(orgs => setOrganisations(orgs))
   },[])
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3001/me", {
-  //     credentials: "include",
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       res.json().then((user) => {
-  //         setCurrentUser(user);
-  //         setAuthenticated(true);
-  //         console.log(user)
-  //       });
-  //     } else {
-  //       setAuthenticated(true)
-  //       console.log(res)
-  //       ;
-  //     }
-  //   });
-  // }, [organisations]);
   return (
     <div className="App">
       <span>

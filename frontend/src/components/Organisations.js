@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function Organisations({ org, setOrganisations, currentUser, setCurrentUser }) {
   const [editToggle, setEditToggle] = useState(false);
-//   const [staticName, setStaticName] = useState(org.name);
   const [editedName, setEditedName] = useState(org.name);
   const [editedWage, setEditedWage] = useState(org.hourly_rate);
 
@@ -16,9 +15,6 @@ function Organisations({ org, setOrganisations, currentUser, setCurrentUser }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-    // .then(() => {
-    //   setStaticName(editedName);
-    // });
     .then(resp => resp.json())
     .then(data => setOrganisations(data))
   }
@@ -59,8 +55,6 @@ function Organisations({ org, setOrganisations, currentUser, setCurrentUser }) {
       {editToggle ? (
         <div>
           <span>
-            {/* <label>Name: </label>
-                    <input placeholder={org.name} value={editedName} onChange={(e) => setEditedName(e.target.value)}></input> */}
 
             <label>Hourly Rate</label>
             <input

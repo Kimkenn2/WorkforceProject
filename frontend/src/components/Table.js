@@ -1,14 +1,12 @@
 import React, {useState} from 'react'
-import moment from 'moment'
 import BreakLengths from './BreakLengths'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 
-function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCurrentOrgShifts}) {
+function Table({currentUser, currentOrgShifts, organisations, setCurrentOrgShifts}) {
     const [newShiftDate, setNewShiftDate] = useState('')
     const [newStartTime, setNewStartTime] = useState('')
     const [newFinishTime, setNewFinishTime] = useState('')
-    // const [newBreakLength, setNewBreakLength] = useState('')
     const [tags, setTags] = useState([])
     const [searchName, setSearchName] = useState('')
     const [calendarToggle, setCalendarToggle] = useState(false)
@@ -42,33 +40,13 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
        }
    }
     const renderShifts = searchCalendar().map(shift => {
-        // console.log(shift, "shift", shift.user.name)
         const rawStartDate = new Date(shift.start)
-        // var stillUtc = moment.utc(shift.start).toDate();
-        // var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
-        // console.log(local, "local")
 
         //Calculating Total Break Length
         let breakarray = shift.break_length.split(", ").map(Number)
         let sumbreak = breakarray.reduce((a,b) => a+b, 0)
-        // console.log(breakarray, "arraay")
 
-
-        // const rawStartDate = moment(shift.start).format
-        // const rawStartDate = moment(shift.start).format()
         const rawFinishDate = new Date(shift.finish)
-
-        // const start_time_hour = rawStartDate.getHours()
-
-        // console.log(start_time_hour)
-        // console.log(rawStartDate, "raww")
-//         const date = moment.utc().format()
-//         console.log(date, "- now in UTC"); 
-
-//         var local = moment.utc(date).local().format();
-// console.log(local, "- UTC now to local"); 
-
-// console.log("please work", moment.utc(shift.start).local().format(), "did you work?")
 
         const start_readable_date = new Date(shift.start).toLocaleDateString()
         const start_time = new Date(shift.start).toLocaleTimeString('en-US',{
@@ -77,7 +55,6 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
             TimeZone: 'EST',
             hour12: true
         })
-        // console.log(start_time)
         const finish_time = new Date(shift.finish).toLocaleTimeString('en-US',{
             hour: 'numeric',
             minute: 'numeric',
@@ -99,19 +76,7 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
 
         </tr>
     )})
-
-    // function renderShiftsEach() {
-    //     for(let i = 0; i < currentOrgShifts.length; i++){
-            
-    //         return <tr>
-    //             <td>{currentOrgShifts[i].user.name}</td>
-    //         </tr>
-    //     }
-    // }
     function convertTime(timeStr) {
-        // if(timeStr.length < 8 && timeStr[0] !== "0"){
-        //     timeStr = 0 + timeStr
-        // }
         const [time, modifier] = timeStr.split(' ');
         let [hours, minutes] = time.split(':');
         if (hours === '12') {
@@ -137,9 +102,6 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
 
         let formattedStartTime = convertTime(newStartTime)
         let formattedFinishTime = convertTime(newFinishTime)
-        // if(newStartTime > newFinishTime){
-        //     return()
-        // }
 
         const shiftData = {
             user_id: currentUser.id,
@@ -148,8 +110,6 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
             break_length: tags.join(", ")
         }
 
-        // console.log("test", shiftData)
-
         fetch("http://localhost:3001/createshift", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -157,7 +117,6 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
     })
     .then(resp => resp.json())
     .then( data => {
-        // console.log(data, "data")
     setCurrentOrgShifts([...currentOrgShifts, data])
     }
     )
@@ -217,14 +176,12 @@ function Table({currentOrg, currentUser, currentOrgShifts, organisations, setCur
                         <td><input onChange={(e) => setNewStartTime(e.target.value)} value={newStartTime} placeholder={"hh:mm mm"}/></td>
                         <td><input onChange={(e) => setNewFinishTime(e.target.value)} value={newFinishTime} placeholder={"hh:mm mm"}/></td>
                         <td>
-                            {/* <input onChange={(e) => setNewBreakLength(e.target.value)} placeholder={"00"} /> */}
                             <BreakLengths tags={tags} setTags={setTags}/>
                             </td>
                         <td colSpan="2"><button onClick={() => createShift()}>Create Shift</button></td>
                     </tr>
                 </tbody>
             </table>
-            <button onClick={() => console.log(calendarStartDate, calendarEndDate, "t", calendarEndDate.getTime())}>Calendar</button>
         </div>
     )
 }

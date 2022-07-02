@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 function Login ({setCurrentUser, login, setLogin}){
     const [email, setEmail] = useState("")
@@ -46,7 +46,7 @@ function Login ({setCurrentUser, login, setLogin}){
             </form>
             
      {login ? <a className='bottext' onClick={() => setLogin(!login)}>Signup</a> : <a className='bottext'onClick={() => setLogin(!login)}>Login</a>}
-     <p>Forgot Password?</p>
+     <p className='bottext'>Forgot Password?</p>
         </div>
     )
 }

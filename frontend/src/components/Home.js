@@ -10,9 +10,6 @@ function Home({
 }) {
   const [newOrgName, setNewOrgName] = useState("");
   const [newHourlyRate, setNewHourlyRate] = useState("");
-//   const [editToggle, setEditToggle] = useState(false);
-//   const [editedName, setEditedName] = useState(organisations.find((org) => org.id == currentUser.organisation_id).name)
-//   const [editedWage, setEditedWage] = useState(organisations.find((org) => org.id == currentUser.organisation_id).hourly_rate)
 
   function createandjoin() {
     let newOrgId = {}
@@ -25,12 +22,10 @@ function Home({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(org),
     })
-      // .then(console.log(res))
       .then((resp) => resp.json())
       .then(data => newOrgId = {
         organisation_id: data.id
       })
-      // .then(data => returnedOrgData = data)
       .then(() => {
         fetch("http://localhost:3001/organisations")
     .then(resp => resp.json())
@@ -44,47 +39,9 @@ function Home({
         .then((resp) => resp.json())
         .then((data) => setCurrentUser(data));
     }
-    // newOrgId = {
-        //     organisation_id: resp.id
-        // }
-        // res.json().then(console.log(res))
-        // console.log(res => res.json(), "t")
-        // newOrgId = {
-            //   organisation_id: resp.id,
-            // };
-            // .then
-            // console.log(returnedOrgData)
             );
         })
   }
-
-//   function onSubmitEdit() {
-//     const data = {
-//         name: editedName,
-//         hourly_rate: editedWage
-//     }
-//     fetch(`http://localhost:3001/organisations/${currentUser.organisation_id}`, {
-//       method: "PATCH",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(data),
-//     })
-//       .then((resp) => resp.json())
-//       .then(data => setOrganisations(data))
-//     //   .then((data) => setCurrentUser(data));
-//   }
-
-//   function onLeave() {
-//     const data = {
-//       organisation_id: null,
-//     };
-//     fetch(`http://localhost:3001/users/${currentUser.id}`, {
-//       method: "PATCH",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(data),
-//     })
-//       .then((resp) => resp.json())
-//       .then((data) => setCurrentUser(data));
-//   }
 
   const renderOrgs = organisations.map((org) => (
     <li>
@@ -122,48 +79,6 @@ function Home({
       <button onClick={() => createandjoin()}>Create and Join</button>
     </div>
   );
-//   const yesOrg = currentUser.organisation_id ? (
-//     <div>
-//       <h2>
-//         {
-//           organisations.find((org) => org.id == currentUser.organisation_id)
-//             .name
-//         }
-//       </h2>
-//       <button>View Shifts</button>
-//       <button onClick={() => setEditToggle(!editToggle)}>Edit</button>
-//       <button onClick={() => onLeave()}>Leave</button>
-//       {editToggle ? (
-//         <div>
-//           <div>
-//             <label>Name: </label>
-//             <input onChange={(e) => setEditedName(e.target.value)} value={editedName}
-//               placeholder={
-//                 organisations.find(
-//                   (org) => org.id == currentUser.organisation_id
-//                 ).name
-//               }
-//             ></input>
-//           </div>
-//           <div>
-//             <label>Hourly Rate: $</label>
-//             <input value={editedWage} onChange={(e) => setEditedWage(e.target.value)}
-//               placeholder={
-//                 organisations.find(
-//                   (org) => org.id == currentUser.organisation_id
-//                 ).hourly_rate
-//               }
-//             ></input>
-//           </div>
-//           <button onClick={() => onSubmitEdit()}>Submit Changes</button>
-//         </div>
-//       ) : (
-//         <></>
-//       )}
-    // </div>
-//   ) : (
-//     <></>
-//   );
   return (
     <div className="home">{currentUser.organisation_id ? <BelongsToOrganisation setCurrentUser={setCurrentUser} currentUser={currentUser} organisations={organisations} setOrganisations={setOrganisations}/> : noOrg}</div>
   );
