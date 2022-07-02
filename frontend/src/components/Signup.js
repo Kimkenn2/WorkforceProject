@@ -36,28 +36,28 @@ function Signup({ currentUser, setCurrentUser, allUsers, login, setLogin }) {
       <form>
         <h2>Signup</h2>
 
-        <label for="email">Email</label>
+        <label>Email</label>
         <input
           type="text"
-          placeholder="email"
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         ></input>
 
-        <label for="name">Name</label>
+        <label>Name</label>
         <input
           type="text"
-          placeholder="name"
+          placeholder="Name"
           onChange={(e) => setName(e.target.value)}
         ></input>
 
-        <label for="password">Password</label>
+        <label>Password</label>
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        <label for="password">Password Confirmation</label>
+        <label>Password Confirmation</label>
         <input
           type="password"
           placeholder="Password Confirmation"
@@ -65,6 +65,7 @@ function Signup({ currentUser, setCurrentUser, allUsers, login, setLogin }) {
         ></input>
       </form>
       <button onClick={(e) => submitEvent(e)}>Create Account</button>
+      <div>
       {login ? (
         <a className="bottext" onClick={() => setLogin(!login)}>
           Signup
@@ -74,6 +75,7 @@ function Signup({ currentUser, setCurrentUser, allUsers, login, setLogin }) {
           Login
         </a>
       )}
+      </div>
     </div>
   );
 }

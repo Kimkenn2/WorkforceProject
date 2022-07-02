@@ -13,11 +13,13 @@ code {
 }
 
 .Signup {
-  align-content: center;
-  position: fixed;
-  top:10em;
+  /* position: fixed; */
   left: 2em;
   width: 33%;
+  align-content: center;
+  margin: auto;
+  justify-content: center;
+  margin-top:5rem;
 }
 
 input[type=text], select {
@@ -131,4 +133,9 @@ input[type=password], select {
 .calendarContainer {
   display: flex;
   justify-content: center;
+}
+
+.bottext {
+  color: blue;
+  text-decoration: underline;
 }

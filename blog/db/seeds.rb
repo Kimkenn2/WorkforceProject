@@ -27,7 +27,7 @@ User.create([
     }
 ])
 
-puts "users created"
+puts "Users Created!"
 
 Organisation.create([
     {
@@ -44,7 +44,7 @@ Organisation.create([
     }
 ])
 
-puts "orgs created"
+puts "Orgs Created!"
 
 Shift.create([
     {
@@ -61,6 +61,6 @@ Shift.create([
     }
 ])
 
-puts "shifts created"
+puts "Shifts Created!"
 
-puts "all done!"
+puts "🌱 Seeds Done! 🌱"

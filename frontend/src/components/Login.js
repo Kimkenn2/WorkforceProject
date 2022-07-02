@@ -1,5 +1,3 @@
-
-
 import React, {useState, useEffect} from 'react';
 
 function Login ({setCurrentUser, login, setLogin}){
